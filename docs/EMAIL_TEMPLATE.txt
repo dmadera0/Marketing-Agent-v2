@@ -1,0 +1,112 @@
+================================================================================
+CONTENT BRIEF — Send this email to: blogagent@yourdomain.com
+Subject line: Blog Brief — [Your Topic Here]
+================================================================================
+
+Topic:
+Tone:
+Audience:
+Key Points:
+-
+-
+-
+Call to Action:
+Blog Length: medium
+Industry:
+Tags:
+Drive Folder: Marketing Blog Posts
+
+================================================================================
+FIELD REFERENCE
+================================================================================
+
+Topic        : What the post is about (e.g. "Why async Python beats threading")
+Tone         : Writing style (e.g. conversational, authoritative, educational)
+Audience     : Who should read it (e.g. senior engineers, startup founders)
+Key Points   : Bullet list of the main ideas you want covered (one per line)
+Call to Action: What you want readers to do next (e.g. "Try our free tier")
+Blog Length  : short (~500 words), medium (~900 words), long (~1500 words)
+Industry     : Your sector (e.g. SaaS, Fintech, DevTools, Healthcare)
+Tags         : Comma-separated keywords for Medium (e.g. Python, AWS, DevOps)
+Drive Folder : Name of the Google Drive folder to save the doc into
+
+================================================================================
+EXAMPLE FILLED BRIEF
+================================================================================
+
+Topic: Why async Python beats threading for I/O-bound microservices
+Tone: educational but conversational
+Audience: mid-level Python developers moving into cloud-native architecture
+Key Points:
+- The GIL doesn't protect you in I/O-heavy scenarios
+- asyncio event loop vs OS thread scheduling overhead
+- Real benchmarks: 10x throughput improvement with aiohttp
+- How to migrate a Flask service to FastAPI incrementally
+Call to Action: Star our open-source async migration toolkit on GitHub
+Blog Length: medium
+Industry: DevTools
+Tags: Python, asyncio, microservices, FastAPI, performance
+Drive Folder: Engineering Blog
+
+================================================================================
+REPLY COMMANDS (use these after you receive the draft email)
+================================================================================
+
+Send your reply to: approve@yourdomain.com
+Always keep the "Draft ID: ..." line from the draft email in your reply body.
+
+  Approved
+      → Publishes the blog to Medium, posts to LinkedIn, saves Google Doc.
+         Example reply body:
+         ─────────────────────
+         Approved
+
+         Draft ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+         ─────────────────────
+
+  Rejected
+      → Discards the draft. No content is published.
+         Example reply body:
+         ─────────────────────
+         Rejected
+
+         Draft ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+         ─────────────────────
+
+  Revise: <feedback>
+      → Claude rewrites both the blog and LinkedIn post with your feedback.
+         Example reply body:
+         ─────────────────────
+         Revise: Make the tone more casual and add a section on error handling.
+
+         Draft ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+         ─────────────────────
+
+  Edit Blog: <replacement text>
+      → Replaces the blog post exactly with the text you provide.
+         LinkedIn is automatically re-adapted from the new blog.
+         Example reply body:
+         ─────────────────────
+         Edit Blog: # My New Title
+
+         Full replacement blog content goes here...
+
+         Draft ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+         ─────────────────────
+
+  Edit LinkedIn: <replacement text>
+      → Replaces the LinkedIn post exactly with the text you provide.
+         Blog post is unchanged.
+         Example reply body:
+         ─────────────────────
+         Edit LinkedIn: 🚀 Async Python changed how we build services.
+
+         Here's what 3 years of production async taught us...
+
+         #Python #asyncio #DevTools
+
+         Draft ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+         ─────────────────────
+
+Revisions are unlimited — keep refining until you're happy, then send Approved.
+================================================================================

@@ -1,0 +1,24 @@
+# Terraform secrets and state
+infra/terraform.tfvars
+infra/*.tfstate
+infra/*.tfstate.backup
+infra/.terraform/
+infra/.terraform.lock.hcl
+
+# Build artifacts
+**/*.zip
+lambda_publisher/layer/
+
+# Credentials and secrets
+*.pem
+.env
+*.json.key
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/

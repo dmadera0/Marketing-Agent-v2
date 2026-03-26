@@ -1,0 +1,33 @@
+# Copy this file to terraform.tfvars and fill in all values before running
+# terraform apply.  terraform.tfvars is git-ignored — never commit real secrets.
+
+# ── AWS ───────────────────────────────────────────────────────────────────────
+aws_region = "us-east-1"
+project    = "blog-agent"
+
+# ── SES / Email ───────────────────────────────────────────────────────────────
+# The domain you registered in Route 53 and verified in SES
+ses_domain = "yourdomain.com"
+
+# The agent address — emails sent here start the blog generation flow
+ses_sender_email = "blogagent@yourdomain.com"
+
+# Your personal email — you receive drafts here and reply to approve/revise
+approval_email = "you@gmail.com"
+
+# ── API Keys (sensitive) ──────────────────────────────────────────────────────
+# Anthropic Console → API Keys
+anthropic_api_key = "sk-ant-..."
+
+# Medium → Settings → Integration tokens
+medium_token = "your-medium-integration-token"
+
+# LinkedIn Developer App → Auth → OAuth 2.0 tools (expires every 60 days)
+# Required scopes: w_member_social, r_liteprofile
+linkedin_token = "your-linkedin-access-token"
+
+# Google Drive service account JSON — paste the entire JSON as a single-line
+# string (replace all newlines with \n).  The service account must have the
+# Drive API and Docs API enabled, and the target Drive folder must be shared
+# with the service account's client_email.
+drive_sa_json = "{\"type\":\"service_account\",\"project_id\":\"...\",\"private_key_id\":\"...\",\"private_key\":\"-----BEGIN RSA PRIVATE KEY-----\\n...\\n-----END RSA PRIVATE KEY-----\\n\",\"client_email\":\"...@....iam.gserviceaccount.com\",\"client_id\":\"...\",\"auth_uri\":\"https://accounts.google.com/o/oauth2/auth\",\"token_uri\":\"https://oauth2.googleapis.com/token\"}"
