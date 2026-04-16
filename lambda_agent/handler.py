@@ -219,18 +219,19 @@ H2 sections, key takeaways, and end with the BuenaVista CTA section."""
 
 def build_linkedin_prompt(blog: str, fields: dict) -> tuple[str, str]:
     system = (
-        "You are an expert LinkedIn content writer. Write only the LinkedIn post text — "
-        "no preamble, no explanation, no surrounding quotes."
+        f"{BUENAVISTAAI_VOICE}\n\n"
+        "You are writing a LinkedIn post for BuenaVista AI Solutions. "
+        "Write only the LinkedIn post text — no preamble, no explanation, no surrounding quotes."
     )
-    user = f"""Adapt the following blog post into a LinkedIn post.
+    user = f"""Adapt the following blog post into a LinkedIn post for BuenaVista AI Solutions.
 
 Requirements:
 - Maximum 1300 characters (hard limit)
-- Hook on the very first line to grab attention
-- Do NOT start with the word "I"
+- Hook on the very first line — make it impossible to scroll past
+- Do NOT start with "I" or "We're excited to share"
 - 3–5 short paragraphs separated by blank lines
 - Use emojis sparingly (1–3 total)
-- End with a clear call-to-action
+- End with a clear call-to-action pointing to buenavista-ai.com
 - Include 5–8 relevant hashtags on the last line
 - Tone: {fields['tone']}
 - Audience: {fields['audience']}
