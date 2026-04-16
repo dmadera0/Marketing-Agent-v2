@@ -4,6 +4,7 @@ Subject line: Blog Brief — [Your Topic Here]
 ================================================================================
 
 Topic:
+Target Keyword:
 Tone:
 Audience:
 Key Points:
