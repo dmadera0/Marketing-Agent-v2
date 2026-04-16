@@ -125,31 +125,96 @@ def parse_brief(body: str) -> dict:
     return fields
 
 
+BUENAVISTAAI_VOICE = """
+You are the content strategist for BuenaVista AI Solutions, an AI agency based in
+Los Angeles that helps businesses leverage artificial intelligence to streamline
+operations, boost growth, and stay ahead of the curve.
+
+Brand voice rules — follow these precisely:
+- Professional yet approachable: expert without being jargon-heavy
+- Forward-thinking and optimistic about AI's practical benefits for real businesses
+- Story-driven: open with a hook, anchor ideas in real-world impact
+- Never salesy. Educate first, inspire action second.
+- Tagline: "Intelligent solutions. Real results."
+
+Company details to weave in naturally where relevant:
+- Services: AI strategy consulting, custom AI integrations, automation workflows,
+  LLM-powered products, data analytics
+- Target audience: SMB owners, operations leaders, marketing directors,
+  forward-thinking executives
+- Website: https://buenavista-ai.com
+"""
+
+SEO_INSTRUCTIONS = """
+SEO requirements — apply to every blog post:
+- Include the primary keyword in: H1 title, first 100 words, at least 2 H2 subheadings
+- Natural keyword density: 1–2% (do not stuff)
+- Write a meta description of 150–155 characters at the very top, labelled:
+  META: [your meta description here]
+- Suggest a URL slug on the second line, labelled:
+  SLUG: [your-url-slug-here]
+- Use H2 subheadings every 200–250 words
+- Sentences under 25 words where possible
+- End with an H2 section: "How BuenaVista AI Solutions Can Help" (100 words, soft CTA)
+"""
+
+
 def build_blog_prompt(fields: dict) -> tuple[str, str]:
     length_map = {"short": "~500 words", "medium": "~900 words", "long": "~1500 words"}
     length = length_map.get(fields.get("blog_length", "medium").lower(), "~900 words")
     key_points = "\n".join(f"- {p}" for p in fields.get("key_points", []))
     tags = ", ".join(fields.get("tags", []))
+    keyword = fields.get("target_keyword", fields.get("topic", ""))
 
     system = (
-        "You are an expert content writer. Write only the blog post content in markdown format. "
-        "Do not include any preamble, explanation, or closing remarks outside the post itself. "
-        "Start directly with the title as a markdown H1."
+        f"{BUENAVISTAAI_VOICE}\n\n"
+        "You are writing a blog post for the BuenaVista AI Solutions website and Medium channel. "
+        "Write only the blog post content in markdown format. "
+        "Start with META: and SLUG: lines, then the H1 title, then the post body. "
+        "Do not include any preamble or closing remarks outside the post itself."
     )
-    user = f"""Write a {length} blog post with the following details:
+    user = f"""Write a {length} SEO-optimised blog post with the following details:
 
 Topic: {fields['topic']}
+Primary SEO keyword: {keyword}
 Audience: {fields['audience']}
-Industry: {fields['industry']}
+Industry: {fields.get('industry', 'AI / Technology')}
 Tone: {fields['tone']}
 Key Points:
 {key_points}
 Call to Action: {fields['call_to_action']}
 Tags: {tags}
 
-Write the full blog post in markdown. Include an engaging H1 title, well-structured H2 sections, \
-and end with a clear call-to-action paragraph."""
+{SEO_INSTRUCTIONS}
+
+Write the full blog post in markdown. Include an engaging H1 title, well-structured
+H2 sections, key takeaways, and end with the BuenaVista CTA section."""
     return system, user
+# def build_blog_prompt(fields: dict) -> tuple[str, str]:
+#     length_map = {"short": "~500 words", "medium": "~900 words", "long": "~1500 words"}
+#     length = length_map.get(fields.get("blog_length", "medium").lower(), "~900 words")
+#     key_points = "\n".join(f"- {p}" for p in fields.get("key_points", []))
+#     tags = ", ".join(fields.get("tags", []))
+
+#     system = (
+#         "You are an expert content writer. Write only the blog post content in markdown format. "
+#         "Do not include any preamble, explanation, or closing remarks outside the post itself. "
+#         "Start directly with the title as a markdown H1."
+#     )
+#     user = f"""Write a {length} blog post with the following details:
+
+# Topic: {fields['topic']}
+# Audience: {fields['audience']}
+# Industry: {fields['industry']}
+# Tone: {fields['tone']}
+# Key Points:
+# {key_points}
+# Call to Action: {fields['call_to_action']}
+# Tags: {tags}
+
+# Write the full blog post in markdown. Include an engaging H1 title, well-structured H2 sections, \
+# and end with a clear call-to-action paragraph."""
+#     return system, user
 
 
 def build_linkedin_prompt(blog: str, fields: dict) -> tuple[str, str]:
