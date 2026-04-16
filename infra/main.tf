@@ -49,12 +49,6 @@ variable "anthropic_api_key" {
   sensitive   = true
 }
 
-variable "medium_token" {
-  description = "Medium integration token"
-  type        = string
-  sensitive   = true
-}
-
 variable "linkedin_token" {
   description = "LinkedIn OAuth 2.0 access token"
   type        = string

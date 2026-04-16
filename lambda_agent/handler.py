@@ -103,6 +103,7 @@ def parse_brief(body: str) -> dict:
         return m.group(1).strip() if m else ""
 
     fields["topic"]          = grab("Topic")
+    fields["target_keyword"] = grab("Target Keyword") or grab("Topic")
     fields["tone"]           = grab("Tone")
     fields["audience"]       = grab("Audience")
     fields["call_to_action"] = grab("Call to Action")

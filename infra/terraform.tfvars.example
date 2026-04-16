@@ -19,8 +19,6 @@ approval_email = "you@gmail.com"
 # Anthropic Console → API Keys
 anthropic_api_key = "sk-ant-..."
 
-# Medium → Settings → Integration tokens
-medium_token = "your-medium-integration-token"
 
 # LinkedIn Developer App → Auth → OAuth 2.0 tools (expires every 60 days)
 # Required scopes: w_member_social, r_liteprofile

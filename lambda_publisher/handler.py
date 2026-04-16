@@ -23,7 +23,7 @@ ssm       = boto3.client("ssm", region_name=os.environ.get("AWS_REGION", "us-eas
 DYNAMODB_TABLE   = os.environ["DYNAMODB_TABLE"]
 SES_SENDER_EMAIL = os.environ["SES_SENDER_EMAIL"]
 APPROVAL_EMAIL   = os.environ["APPROVAL_EMAIL"]
-MEDIUM_TOKEN     = os.environ["MEDIUM_TOKEN"]
+# MEDIUM_TOKEN     = os.environ["MEDIUM_TOKEN"]
 LINKEDIN_TOKEN   = os.environ["LINKEDIN_TOKEN"]
 DRIVE_SA_PARAM   = os.environ["DRIVE_SA_PARAM"]
 
@@ -243,10 +243,9 @@ def publish_google_drive(blog: str, linkedin_text: str, topic: str, folder_name:
 
 # ── Confirmation email ────────────────────────────────────────────────────────
 
-def send_confirmation_email(topic: str, medium_url: str, linkedin_url: str,
+def send_confirmation_email(topic: str, linkedin_url: str,
                             drive_url: str, errors: list) -> None:
     lines = [f"Your content for '{topic}' has been published.\n"]
-    lines.append(f"Medium:   {medium_url or '(failed)'}")
     lines.append(f"LinkedIn: {linkedin_url or '(failed)'}")
     lines.append(f"Drive:    {drive_url or '(failed)'}")
     if errors:
@@ -362,18 +361,18 @@ def handler(event, context):
             ExpressionAttributeValues={":st": "PROCESSING"},
         )
 
-        medium_url   = ""
+        # medium_url   = ""
         linkedin_url = ""
         drive_url    = ""
         errors       = []
 
         # Medium
-        try:
-            medium_url = publish_medium(blog, topic, tags)
-        except Exception as exc:
-            msg = f"Medium publish failed: {exc}"
-            print(f"ERROR: {msg}")
-            errors.append(msg)
+        # try:
+        #     medium_url = publish_medium(blog, topic, tags)
+        # except Exception as exc:
+        #     msg = f"Medium publish failed: {exc}"
+        #     print(f"ERROR: {msg}")
+        #     errors.append(msg)
 
         # LinkedIn
         try:
@@ -403,7 +402,7 @@ def handler(event, context):
                 ":st": final_status,
                 ":pa": int(time.time()),
                 ":pr": json.dumps({
-                    "medium":   medium_url,
+                    # "medium":   medium_url,
                     "linkedin": linkedin_url,
                     "drive":    drive_url,
                     "errors":   errors,
@@ -411,7 +410,7 @@ def handler(event, context):
             },
         )
 
-        send_confirmation_email(topic, medium_url, linkedin_url, drive_url, errors)
+        send_confirmation_email(topic, linkedin_url, drive_url, errors)
         return {
             "statusCode": 200,
             "body": f"Draft {draft_id} published ({final_status}).",
