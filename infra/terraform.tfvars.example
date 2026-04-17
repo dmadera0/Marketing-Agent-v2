@@ -20,6 +20,7 @@ approval_email = "you@gmail.com"
 anthropic_api_key = "sk-ant-..."
 
 
+
 # LinkedIn Developer App → Auth → OAuth 2.0 tools (expires every 60 days)
 # Required scopes: w_member_social, r_liteprofile
 linkedin_token = "your-linkedin-access-token"
