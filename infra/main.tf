@@ -373,3 +373,9 @@ output "publisher_lambda" {
   description = "Publisher Lambda function name"
   value       = aws_lambda_function.publisher.function_name
 }
+
+variable "drive_folder_id" {
+  description = "Google Drive folder ID for saving blog docs"
+  type        = string
+  default     = ""
+}
