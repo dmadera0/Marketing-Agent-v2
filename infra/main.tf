@@ -288,7 +288,6 @@ resource "aws_lambda_function" "publisher" {
       DYNAMODB_TABLE   = aws_dynamodb_table.drafts.name
       SES_SENDER_EMAIL = var.ses_sender_email
       APPROVAL_EMAIL   = var.approval_email
-      MEDIUM_TOKEN     = var.medium_token
       LINKEDIN_TOKEN   = var.linkedin_token
       DRIVE_SA_PARAM   = aws_ssm_parameter.drive_sa.name
     }
