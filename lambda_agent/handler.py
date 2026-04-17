@@ -553,8 +553,15 @@ def handler(event, context):
         elif intent == "edit_linkedin":
             return handle_edit_linkedin(body, payload)
         elif intent in ("approved", "rejected"):
-            print(f"Intent '{intent}' is handled by Lambda 2 (Publisher). Skipping.")
-            return {"statusCode": 200, "body": f"Intent '{intent}' delegated to Publisher Lambda."}
+            import boto3
+            lambda_client = boto3.client("lambda")
+            lambda_client.invoke(
+                FunctionName=os.environ.get("PUBLISHER_FUNCTION_NAME", "blog-agent-publisher"),
+                InvocationType="Event",
+                Payload=raw_bytes,
+            )
+            print(f"Intent '{intent}' forwarded to Publisher Lambda.")
+            return {"statusCode": 200, "body": f"Intent '{intent}' forwarded to Publisher Lambda."}
         else:
             print(f"Unknown intent — ignoring.")
             return {"statusCode": 200, "body": "Unknown intent — no action taken."}

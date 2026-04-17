@@ -215,7 +215,13 @@ resource "aws_iam_role_policy" "lambda_inline" {
         Effect = "Allow"
         Action = ["ssm:GetParameter"]
         Resource = aws_ssm_parameter.drive_sa.arn
-      }
+      },
+      {
+        Sid    = "InvokePublisher"
+        Effect = "Allow"
+        Action = ["lambda:InvokeFunction"]
+        Resource = aws_lambda_function.publisher.arn
+      },
     ]
   })
 }
@@ -251,13 +257,14 @@ resource "aws_lambda_function" "agent" {
   memory_size      = 512
 
   environment {
-    variables = {
-      ANTHROPIC_API_KEY = var.anthropic_api_key
-      DYNAMODB_TABLE    = aws_dynamodb_table.drafts.name
-      SES_SENDER_EMAIL  = var.ses_sender_email
-      APPROVAL_EMAIL    = var.approval_email
-    }
+  variables = {
+    ANTHROPIC_API_KEY        = var.anthropic_api_key
+    DYNAMODB_TABLE           = aws_dynamodb_table.drafts.name
+    SES_SENDER_EMAIL         = var.ses_sender_email
+    APPROVAL_EMAIL           = var.approval_email
+    PUBLISHER_FUNCTION_NAME  = aws_lambda_function.publisher.function_name
   }
+}
 
   tags = {
     Project = var.project
@@ -335,13 +342,6 @@ resource "aws_s3_bucket_notification" "email_triggers" {
   lambda_function {
     id                  = "replies-agent"
     lambda_function_arn = aws_lambda_function.agent.arn
-    events              = ["s3:ObjectCreated:*"]
-    filter_prefix       = "replies/"
-  }
-
-  lambda_function {
-    id                  = "replies-publisher"
-    lambda_function_arn = aws_lambda_function.publisher.arn
     events              = ["s3:ObjectCreated:*"]
     filter_prefix       = "replies/"
   }
